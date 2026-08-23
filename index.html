@@ -159,14 +159,16 @@ function submitOrder(){
     document.getElementById("name").value = "";
     document.getElementById("phone").value = "";
     document.getElementById("note").value = "";
-  })
-  .catch(err => {
+    }).catch(err => {
     alert("送出失敗，請再試一次！");
     console.error(err);
   });
 }
 
-renderProducts();renderCart();
+// 必須加上這兩行，菜單與購物車才會顯示出來！
+renderProducts();
+renderCart();
 </script>
+
 </body>
 </html>
