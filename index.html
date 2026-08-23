@@ -14,8 +14,9 @@
     .info-card .row { margin-bottom: 6px; }
     
     .section-title { font-size: 20px; font-weight: bold; margin: 20px 0 10px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-    .card { background: #fff; border: 1px solid #fed7aa; border-radius: 10px; padding: 10px; text-align: center; }
+    .grid { display: flex; flex-direction: column; gap: 10px; }
+.card { background: #fff; border: 1px solid #fed7aa; border-radius: 10px; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; }
+
     .icon { font-size: 30px; }
     .price { color: #c2410c; font-weight: bold; margin: 5px 0; }
     .qty button { background: #ea580c; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; font-size: 16px; cursor: pointer; }
@@ -93,16 +94,21 @@
       const container = document.getElementById("products");
       if (!container) return;
       container.innerHTML = products.map((p, i) => `
-        <div class="card">
-          <div class="icon">${p.icon}</div>
-          <h3>${p.name}</h3>
-          <div class="price">$${p.price}</div>
+                <div class="card">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 26px;">${p.icon}</span>
+            <div>
+              <h3 style="margin: 0; font-size: 16px;">${p.name}</h3>
+              <div class="price" style="margin: 2px 0 0; text-align: left;">$${p.price}</div>
+            </div>
+          </div>
           <div class="qty">
             <button onclick="change(${i},-1)">-</button>
             <span id="q${i}">0</span>
             <button onclick="change(${i},1)">+</button>
           </div>
         </div>
+
       `).join('');
     }
 
