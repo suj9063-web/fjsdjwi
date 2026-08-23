@@ -146,24 +146,24 @@ function submitOrder(){
 
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbynx3WmCLM7Tj4UPK9RfE3TF8l8r303eRuoGWCj6K4OjvQmnm7N0YRDXIhm7APeWsEx0Q/exec; // 請換成你剛剛複製的完整網址
 
-  fetch(GAS_URL, {
+   fetch(GAS_URL, {
     method: 'POST',
     mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(orderData)
-  })
-  .then(() => {
+  }).then(() => {
     alert(`訂單已成功送出！\n\n${lines.join("\n")}\n\n總計：$${total}`);
     cart = {};
+    renderProducts();
     renderCart();
     document.getElementById("name").value = "";
     document.getElementById("phone").value = "";
     document.getElementById("note").value = "";
-    }).catch(err => {
+  }).catch(err => {
     alert("送出失敗，請再試一次！");
     console.error(err);
   });
-}
+
 
 // 必須加上這兩行，菜單與購物車才會顯示出來！
 renderProducts();
