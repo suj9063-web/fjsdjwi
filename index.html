@@ -126,14 +126,46 @@ function renderCart(){
  document.getElementById("total").textContent=total;
 }
 function submitOrder(){
- let lines=[],total=0;
- products.forEach((p,i)=>{let q=cart[i]||0;if(q){lines.push(`${p.name} × ${q}`);total+=q*p.price}});
- const name=document.getElementById("name").value.trim();
- const phone=document.getElementById("phone").value.trim();
- if(!lines.length)return alert("請先選擇車輪餅！");
- if(!name||!phone)return alert("請填寫姓名與電話！");
- alert(`訂單已建立！\n\n${lines.join("\n")}\n\n總計：$${total}\n取貨：${document.getElementById("pickup").value}\n\n目前是示範版，尚未連接真正的訂單後台。`);
+  let lines=[],total=0;
+  products.forEach((p,i)=>{let q=cart[i]||0;if(q){lines.push(`${p.name} × ${q}`);total+=q*p.price;}});
+  const name=document.getElementById("name").value.trim();
+  const phone=document.getElementById("phone").value.trim();
+  const pickup=document.getElementById("pickup").value;
+  const note=document.getElementById("note").value.trim();
+
+  if(!lines.length) return alert("請先選擇商品！");
+  if(!name || !phone) return alert("請填寫姓名與電話！");
+
+  const orderData = {
+    name: name,
+    phone: phone,
+    items: `${lines.join(', ')} (總計: $${total})`,
+    type: pickup,
+    note: note
+  };
+
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbynx3WmCLM7Tj4UPK9RfE3TF8I8r303eRuoGWCj6K4OjvQmnm7N0YRDXIhm.../exec'; // 請換成你剛剛複製的完整網址
+
+  fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(orderData)
+  })
+  .then(() => {
+    alert(`訂單已成功送出！\n\n${lines.join("\n")}\n\n總計：$${total}`);
+    cart = {};
+    renderCart();
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("note").value = "";
+  })
+  .catch(err => {
+    alert("送出失敗，請再試一次！");
+    console.error(err);
+  });
 }
+
 renderProducts();renderCart();
 </script>
 </body>
