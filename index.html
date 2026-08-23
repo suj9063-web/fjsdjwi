@@ -68,8 +68,7 @@
     </select>
 
     <label>備註</label>
-    <input id="note" placeholder="例如：不要太甜、幾點取貨">
-
+    <textarea id="note" rows="3" placeholder="例如：不要太甜、幾點取貨"></textarea>
 
     <button class="order" onclick="submitOrder()">送出訂單</button>
   </div>
@@ -80,11 +79,11 @@
 
   <script>
     const products = [
-      { name: "紅豆車輪餅", price: 15, icon:redBeanSvg},
-      { name: "奶油車輪餅", price: 15, icon:milkSvg},
-      { name: "芋頭車輪餅", price: 20, icon:taroSvg},
-      { name: "巧克力車輪餅", price: 25, icon:chocSvg},
-      { name: "起司車輪餅", price: 27, icon:cheeseSvg}
+      { name: "紅豆車輪餅", price: 25, icon: "🫘" },
+      { name: "奶油車輪餅", price: 25, icon: "🥛" },
+      { name: "芋頭車輪餅", price: 25, icon: "🍠" },
+      { name: "巧克力車輪餅", price: 25, icon: "🍫" },
+      { name: "起司車輪餅", price: 27, icon: "🧀" }
     ];
 
     let cart = {};
